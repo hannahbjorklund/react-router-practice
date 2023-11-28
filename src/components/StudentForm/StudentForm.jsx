@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {useHistory} from 'react-router-dom';
 
 
 function StudentForm() {
     
+    const history = useHistory();
     const [student, setStudent] = useState('');
-
 
     // Called when the submit button is pressed
     const addStudent = (newStudent) => {
@@ -16,6 +17,7 @@ function StudentForm() {
             data: {github_name: newStudent}
         }).then((response) => {
             console.log(response);
+            navigateToStudents();
         }).catch((err) => {
             console.log(err);
         });
@@ -33,6 +35,9 @@ function StudentForm() {
         setStudent('');
     }
 
+    const navigateToStudents = () => {
+        history.push('/allStudents');
+    }
 
     return (
         <form onSubmit={handleSubmit}>
